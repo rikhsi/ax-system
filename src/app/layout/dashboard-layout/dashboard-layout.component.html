@@ -1,20 +1,22 @@
-<div class="dashboard">
-    <ax-navigation 
-        [pages]="dashboardPages$ | async"
-        [currentPage]="currentPage"
-        (selectedPage)="onChangeCurrentPage($event)"
-        (logoutClick)="logout()">
-    </ax-navigation>
-
-    <div class="box">
-        <ax-header
-            [title]="currentPage?.title"
-            [user]="user$ | async"
-        >
-        </ax-header>
-
-        <main class="main">
-            <router-outlet></router-outlet>
-        </main>
+<ng-container *ngIf="currentPage$ | async as currentPage">
+    <div class="dashboard">
+        <ax-navigation 
+            [pages]="dashboardPages$ | async"
+            [currentPage]="currentPage"
+            (selectedPage)="onChangeCurrentPage($event)"
+            (logoutClick)="logout()">
+        </ax-navigation>
+    
+        <div class="box">
+            <ax-header
+                [title]="currentPage.title"
+                [user]="user$ | async"
+            >
+            </ax-header>
+    
+            <main class="main">
+                <router-outlet></router-outlet>
+            </main>
+        </div>
     </div>
-</div>
+</ng-container>

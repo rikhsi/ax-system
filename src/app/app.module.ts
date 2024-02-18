@@ -11,6 +11,7 @@ import { CoreInterceptor } from './core/interceptors/core.interceptor';
 import { StoreModule } from '@ngrx/store';
 import { AppState } from './typings/store';
 import { userReducer } from './constants/store/user';
+import { layoutActivePageReducer, layoutPagesReducer } from './constants/store/layout-page';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,8 @@ import { userReducer } from './constants/store/user';
     DashboardLayoutModule,
     BrowserAnimationsModule,
     StoreModule.forRoot<AppState>({
+      layoutPages: layoutPagesReducer,
+      layoutActivePage: layoutActivePageReducer,
       user: userReducer
     }),
   ],

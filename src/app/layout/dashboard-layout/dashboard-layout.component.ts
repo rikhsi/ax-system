@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { DashboardLayoutService } from './dashboard-layout.service';
 import { Observable, filter, from, map, of, switchMap, take, takeUntil } from 'rxjs';
 import { NavItem } from 'src/app/typings';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,6 +8,8 @@ import { UserService } from 'src/app/api/services';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/typings/store';
 import { userLoad, userFailure, userSuccess, selectUser } from 'src/app/constants/store/user';
+import { User } from 'src/app/typings/api';
+import { selectLayoutPages, selectLayoutActivePage, layoutActivePage  } from 'src/app/constants/store/layout-page';
 
 
 @Component({
@@ -19,12 +20,11 @@ import { userLoad, userFailure, userSuccess, selectUser } from 'src/app/constant
   providers: [DestroyService]
 })
 export class DashboardLayoutComponent implements OnInit {
-  dashboardPages$: Observable<NavItem[]>;
-  currentPage: NavItem;
-  user$: Observable<any> = this.store.pipe(select(selectUser));
+  dashboardPages$: Observable<NavItem[]> = this.store.pipe(select(selectLayoutPages));
+  user$: Observable<User> = this.store.pipe(select(selectUser));
+  currentPage$: Observable<NavItem> = this.store.pipe(select(selectLayoutActivePage));
 
   constructor(
-    private dashboardLayoutService: DashboardLayoutService,
     private router: Router,
     private route: ActivatedRoute,
     private destroy: DestroyService,
@@ -35,9 +35,6 @@ export class DashboardLayoutComponent implements OnInit {
   ){} 
 
   ngOnInit(): void {
-    this.dashboardPages$ = this.dashboardLayoutService.dashboardPages$;
-
-    this.dashboardLayoutService.initDashboard();
     this.defineRoute();
     this.onGetUser();
   }  
@@ -59,9 +56,9 @@ export class DashboardLayoutComponent implements OnInit {
       map(user => {
         if (user) {
           return userSuccess({ user });
-        } else {
-          return userFailure({ error: 'User not found' });
-        }
+        } 
+
+        return userFailure({ error: 'User not found' });
       }),
       takeUntil(this.destroy)
     ).subscribe(action => {
@@ -82,15 +79,16 @@ export class DashboardLayoutComponent implements OnInit {
         )),
       takeUntil(this.destroy)
     )
-    .subscribe(item => {
-      this.currentPage = item;
+    .subscribe(page => {
+      this.store.dispatch(layoutActivePage({page}));
     });
   }
 
-  onChangeCurrentPage(item: NavItem): void {
-    this.currentPage = item;
+  onChangeCurrentPage(page: NavItem): void {
 
-    this.router.navigate([item.route], {relativeTo: this.route});
+    this.store.dispatch(layoutActivePage({page}));
+
+    this.router.navigate([page.route], {relativeTo: this.route});
   }
 
   logout(): void {
