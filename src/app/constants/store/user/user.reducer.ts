@@ -1,21 +1,26 @@
 import { createReducer, on } from '@ngrx/store';
-import * as UserActions from './user.actions';
 import { UserState } from 'src/app/typings/store';
+import { userFailure, userLoad, userLogout, userSuccess } from './user.actions';
 
 
-export const initialState: UserState = {
+const initialState: UserState = {
   user: null
 };
 
 export const userReducer = createReducer(
   initialState,
-  on(UserActions.loadUser, state => ({
+  on(userLoad, state => ({
     ...state,
   })),
-  on(UserActions.loadUserSuccess, (state) => ({
+  on(userSuccess, (state, {user}) => ({
+    ...state,
+    user: user
+  })),
+  on(userFailure, (state) => ({
     ...state,
   })),
-  on(UserActions.loadUserFailure, (state) => ({
+  on(userLogout, (state) => ({
     ...state,
+    user: null
   }))
 );

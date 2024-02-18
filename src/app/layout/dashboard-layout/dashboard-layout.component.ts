@@ -1,11 +1,16 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { DashboardLayoutService } from './dashboard-layout.service';
-import { Observable, filter, from, of, switchMap, take, takeUntil } from 'rxjs';
+import { Observable, filter, from, map, of, switchMap, take, takeUntil } from 'rxjs';
 import { NavItem } from 'src/app/typings';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AUTH_ROUTE, ROOT_ROUTE } from 'src/app/constants';
 import { DestroyService, RedirectService, StorageService } from 'src/app/core/services';
 import { UserService } from 'src/app/api/services';
+import { Store, select } from '@ngrx/store';
+import { AppState } from 'src/app/typings/store';
+import { userLoad, userFailure, userSuccess, selectUser } from 'src/app/constants/store/user';
+import { User } from 'src/app/typings/api';
+import { selectLayoutPages, selectLayoutActivePage, layoutActivePage  } from 'src/app/constants/store/layout-page';
+
 
 @Component({
   selector: 'ax-dashboard-layout',
@@ -15,23 +20,21 @@ import { UserService } from 'src/app/api/services';
   providers: [DestroyService]
 })
 export class DashboardLayoutComponent implements OnInit {
-  dashboardPages$: Observable<NavItem[]>;
-  currentPage: NavItem;
+  dashboardPages$: Observable<NavItem[]> = this.store.pipe(select(selectLayoutPages));
+  user$: Observable<User> = this.store.pipe(select(selectUser));
+  currentPage$: Observable<NavItem> = this.store.pipe(select(selectLayoutActivePage));
 
   constructor(
-    private dashboardLayoutService: DashboardLayoutService,
     private router: Router,
     private route: ActivatedRoute,
     private destroy: DestroyService,
     private storageService: StorageService,
     private userService: UserService,
-    private redirectService: RedirectService
+    private redirectService: RedirectService,
+    private store: Store<AppState>
   ){} 
 
   ngOnInit(): void {
-    this.dashboardPages$ = this.dashboardLayoutService.dashboardPages$;
-
-    this.dashboardLayoutService.initDashboard();
     this.defineRoute();
     this.onGetUser();
   }  
@@ -39,25 +42,28 @@ export class DashboardLayoutComponent implements OnInit {
   private onGetUser(): void {
     const token = this.storageService.getAccessToken() as string;
 
-    this.userService.getUserById(+token)
-    .pipe(
+    this.store.dispatch(userLoad()); 
+
+    this.userService.getUserById(+token).pipe(
       switchMap(user => {
-        if(!user) {
+        if (!user) {
           this.storageService.clear();
           this.redirectService.navigateOnLogout();
-
-          return of(null)
+          return of(null);
         }
+        return of(user);
+      }),
+      map(user => {
+        if (user) {
+          return userSuccess({ user });
+        } 
 
-        return of(user)
+        return userFailure({ error: 'User not found' });
       }),
       takeUntil(this.destroy)
-    )
-    .subscribe({
-      next: user => {
-
-      }
-    })
+    ).subscribe(action => {
+      this.store.dispatch(action);
+    });
   }
 
   private defineRoute(): void {
@@ -73,15 +79,16 @@ export class DashboardLayoutComponent implements OnInit {
         )),
       takeUntil(this.destroy)
     )
-    .subscribe(item => {
-      this.currentPage = item;
+    .subscribe(page => {
+      this.store.dispatch(layoutActivePage({page}));
     });
   }
 
-  onChangeCurrentPage(item: NavItem): void {
-    this.currentPage = item;
+  onChangeCurrentPage(page: NavItem): void {
 
-    this.router.navigate([item.route], {relativeTo: this.route});
+    this.store.dispatch(layoutActivePage({page}));
+
+    this.router.navigate([page.route], {relativeTo: this.route});
   }
 
   logout(): void {

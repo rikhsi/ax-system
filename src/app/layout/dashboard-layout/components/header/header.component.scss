@@ -1,0 +1,41 @@
+@import 'colors';
+@import 'mixin';
+
+.header {
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
+    padding: 25px 30px;
+    
+    .container {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+
+        .title {
+            @include text-mixin(600,28px,36px,$ax-black);
+        }
+
+        .user {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            column-gap: 10px;
+            cursor: pointer;
+            user-select: none;
+
+            img {
+                width: 46px;
+                height: 46px;
+                border-radius: 50%;
+                object-fit: cover;
+                background: aqua;
+            }
+
+            p {
+                @include text-mixin(400,20px,26px,$ax-black);
+            }
+        }
+    }
+}
