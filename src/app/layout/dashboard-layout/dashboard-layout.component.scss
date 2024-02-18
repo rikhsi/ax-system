@@ -1,0 +1,23 @@
+@import 'colors';
+
+.dashboard {
+    height: 100svh;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    .box {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-height: 100%;
+    }
+
+    .main {
+        flex: 1;
+        height: 100%;
+        background-color: $ax-grey;
+    }
+}

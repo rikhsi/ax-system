@@ -1,0 +1,79 @@
+<section class="auth">
+    <div class="container">
+        <div class="image">
+            <img 
+                axImage
+                width="422px"
+                height="354px"
+                src="assets/images/taskSystem.webp" 
+                alt="taskSystem" 
+            >
+        </div>
+
+        <div class="content">
+            <ng-form 
+                [formGroup]="loginForm" 
+                class="form"
+            >
+                <h1 class="title">Авторизация</h1>
+
+                <mat-form-field hideRequiredMarker>
+                    <mat-label>Эл. почта</mat-label>
+
+                    <input 
+                        matInput 
+                        formControlName="email"
+                    >
+
+                    <mat-error>
+                        <div 
+                            *ngIf="onCheckErrors('email') as message"
+                            class="error"
+                        >
+                            {{message}}
+
+                            <ax-svg-icon [name]="'error'"></ax-svg-icon>
+                        </div>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field hideRequiredMarker>
+                    <mat-label>Пароль</mat-label>
+
+                    <input 
+                        matInput
+                        formControlName="password"
+                        [type]="isPassword ? 'password' : 'text'"
+                    >
+
+                    <ax-svg-icon 
+                        matSuffix 
+                        [name]="isPassword ? 'eye' : 'eye_off'"
+                        [cursor]="'pointer'"
+                        (click)="toggleVisibilty()"
+                        class="eye">
+                    </ax-svg-icon>
+
+                    <mat-error>
+                        <div 
+                            *ngIf="onCheckErrors('password') as message"
+                            class="error"
+                        >
+                            {{message}}
+
+                            <ax-svg-icon [name]="'error'"></ax-svg-icon>
+                        </div>
+                    </mat-error>
+                </mat-form-field>
+
+                <ax-button
+                    [text]="'Войти в систему'"
+                    [mode]="'primary'"
+                    [disabled]="loginForm.invalid"
+                    (clicked)="submit()"
+                >    
+                </ax-button>
+            </ng-form>
+        </div>
+    </div>
+</section>

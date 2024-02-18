@@ -1,0 +1,28 @@
+@import 'colors';
+
+:host {
+    display: flex;
+    min-height: 100%;
+}
+
+.navigation {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    min-height: 100%;
+    padding-bottom: 30px;
+
+    .logo {
+        padding: 30px;
+    }
+
+    [ax-menu] {
+        flex: 1;
+    }
+
+    .divider {
+        margin: 20px 0;
+        height: 1px;
+        background-color: $ax-light-grey;
+    }
+}

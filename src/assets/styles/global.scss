@@ -1,0 +1,63 @@
+@import 'mixin';
+@import 'colors';
+
+//material
+.mat-mdc-text-field-wrapper  {
+    background-color: inherit !important;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+    height: 20px;
+}
+
+.mdc-text-field {
+    padding: 0 12px !important;
+}
+
+.mat-mdc-form-field-error-wrapper {
+    padding: 0 12px !important;
+    height: 100%;
+}
+
+.mat-mdc-form-field-error {
+    height: 100%;
+    display: flex !important;
+    align-items: center;
+    font-size: 12px;
+}
+
+
+//custom components
+.ax-menu-item {
+    position: relative;
+    padding: 20px 30px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    column-gap: 16px;
+    user-select: none;
+    background: inherit;
+    border: none;
+    cursor: pointer;
+    @include text-mixin(400,17px,22px,$ax-black);
+
+    &:hover {
+        background: $ax-linear-blue;
+    }
+
+    &.active {
+        transition: 0.3s;
+        background: $ax-linear-blue;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: $ax-default-blue;
+            visibility: visible;
+        }
+    }
+}

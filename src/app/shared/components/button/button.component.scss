@@ -1,0 +1,43 @@
+@import 'colors';
+@import 'mixin';
+
+:host {
+    min-width: 100%;
+
+    .button {
+        min-width: 100%;
+        height: 46px;
+        border: 2px solid $ax-light-blue;
+        border-radius: 10px;
+        @include text-mixin(400,17px, 22px, $ax-black);
+    
+        &:disabled {
+            background-color: $ax-grey;
+            color: inherit;
+            border: none;
+        }
+    
+        &.primary:not(&:disabled) {
+            background-color: $ax-light-blue;
+            color: $ax-white;
+        }    
+    
+        .content {
+            display: flex;
+            flex-wrap: nowrap;
+            column-gap: 6px;
+            align-items: center;
+    
+            ::ng-deep svg path{
+                stroke: $ax-white;
+            }
+
+            &.disabled {
+                ::ng-deep svg path{
+                    stroke: $ax-black;
+                }
+            }
+        }
+    }
+}
+

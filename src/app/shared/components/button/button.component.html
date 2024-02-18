@@ -1,0 +1,18 @@
+<button 
+    mat-button 
+    class="button"
+    [ngClass]="{ primary: mode === 'primary' }"
+    [disabled]="disabled"
+    (click)="onClick()"
+>
+    <span 
+        class="content"
+        [ngClass]="{disabled: disabled}"
+    >
+        {{text}}
+        
+        <ng-container *ngIf="icon">
+            <ax-svg-icon [name]="icon"></ax-svg-icon>
+        </ng-container>
+    </span>
+</button>

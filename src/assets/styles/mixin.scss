@@ -1,0 +1,18 @@
+$media-max-xs: '(max-width: 480px)';
+$media-xs: '(min-width: 480px)';
+$media-s: '(min-width: 768px)';
+$media-m: '(min-width: 1024px)';
+$media-l: '(min-width: 1440px)';
+
+@mixin media-mixin ($media) {
+  @media only screen and #{$media} {
+    @content;
+  }
+}
+
+@mixin text-mixin($fw, $fz, $lh, $color) {
+  font-weight: $fw;
+  font-size: $fz;
+  line-height: $lh;
+  color: $color;
+}

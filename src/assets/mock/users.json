@@ -1,0 +1,18 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "email": "test1@gmail.com",
+            "password": "12345678",
+            "avatar": "https://cdn3d.iconscout.com/3d/premium/thumb/man-avatar-6299539-5187871.png?f=webp",
+            "displayName": "Артём Шипулин"
+        },
+        {
+            "id": 2,
+            "email": "test2@gmail.com",
+            "password": "12345678",
+            "avatar": "https://cdn3d.iconscout.com/3d/premium/thumb/woman-avatar-6299541-5187873.png?f=webp",
+            "displayName": "Мария Кострова"
+        }
+    ]
+}

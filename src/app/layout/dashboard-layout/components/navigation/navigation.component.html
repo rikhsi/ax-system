@@ -1,0 +1,36 @@
+<nav class="navigation">
+    <div class="logo">
+        <ax-svg-icon 
+            [name]="'logo'" 
+            [cursor]="'pointer'"
+            (click)="onNavigate()">
+        </ax-svg-icon>
+    </div>
+    
+    <ul ax-menu>
+        <ng-container *ngFor="let page of pages; let last = last">
+            <li *ngIf="last" class="divider"></li>
+            <li 
+                ax-menu-item
+                mat-ripple
+                [ax-selected]="currentPage?.route === page.route"
+                (clicked)="onNavigate(page)"
+            >
+                <ax-svg-icon [name]="page.icon"></ax-svg-icon>
+
+                <span>{{page.title}}</span>
+            </li>
+        </ng-container>
+    </ul>
+
+
+    <button 
+        ax-menu-item 
+        mat-ripple
+        (clicked)="onLogout()"
+    >
+        <ax-svg-icon [name]="'logout'"></ax-svg-icon>
+
+        <span>Выход из системы</span>
+    </button>
+</nav>
