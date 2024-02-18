@@ -9,7 +9,7 @@
     <div class="box">
         <ax-header
             [title]="currentPage?.title"
-            [user]="[]"
+            [user]="user$ | async"
         >
         </ax-header>
 

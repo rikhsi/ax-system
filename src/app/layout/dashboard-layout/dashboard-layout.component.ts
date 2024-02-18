@@ -1,11 +1,15 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DashboardLayoutService } from './dashboard-layout.service';
-import { Observable, filter, from, of, switchMap, take, takeUntil } from 'rxjs';
+import { Observable, filter, from, map, of, switchMap, take, takeUntil } from 'rxjs';
 import { NavItem } from 'src/app/typings';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AUTH_ROUTE, ROOT_ROUTE } from 'src/app/constants';
 import { DestroyService, RedirectService, StorageService } from 'src/app/core/services';
 import { UserService } from 'src/app/api/services';
+import { Store, select } from '@ngrx/store';
+import { AppState } from 'src/app/typings/store';
+import { userLoad, userFailure, userSuccess, selectUser } from 'src/app/constants/store/user';
+
 
 @Component({
   selector: 'ax-dashboard-layout',
@@ -17,6 +21,7 @@ import { UserService } from 'src/app/api/services';
 export class DashboardLayoutComponent implements OnInit {
   dashboardPages$: Observable<NavItem[]>;
   currentPage: NavItem;
+  user$: Observable<any> = this.store.pipe(select(selectUser));
 
   constructor(
     private dashboardLayoutService: DashboardLayoutService,
@@ -25,7 +30,8 @@ export class DashboardLayoutComponent implements OnInit {
     private destroy: DestroyService,
     private storageService: StorageService,
     private userService: UserService,
-    private redirectService: RedirectService
+    private redirectService: RedirectService,
+    private store: Store<AppState>
   ){} 
 
   ngOnInit(): void {
@@ -39,25 +45,28 @@ export class DashboardLayoutComponent implements OnInit {
   private onGetUser(): void {
     const token = this.storageService.getAccessToken() as string;
 
-    this.userService.getUserById(+token)
-    .pipe(
+    this.store.dispatch(userLoad()); 
+
+    this.userService.getUserById(+token).pipe(
       switchMap(user => {
-        if(!user) {
+        if (!user) {
           this.storageService.clear();
           this.redirectService.navigateOnLogout();
-
-          return of(null)
+          return of(null);
         }
-
-        return of(user)
+        return of(user);
+      }),
+      map(user => {
+        if (user) {
+          return userSuccess({ user });
+        } else {
+          return userFailure({ error: 'User not found' });
+        }
       }),
       takeUntil(this.destroy)
-    )
-    .subscribe({
-      next: user => {
-
-      }
-    })
+    ).subscribe(action => {
+      this.store.dispatch(action);
+    });
   }
 
   private defineRoute(): void {

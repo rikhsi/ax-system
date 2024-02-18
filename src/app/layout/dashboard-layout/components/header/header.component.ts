@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { User } from 'src/app/typings/api';
 
 @Component({
   selector: 'ax-header',
@@ -8,6 +9,5 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 })
 export class HeaderComponent {
   @Input() title: string;
-  @Input() user: any;
-  
+  @Input() user: User;  
 }

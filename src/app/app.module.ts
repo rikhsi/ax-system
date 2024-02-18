@@ -10,6 +10,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CoreInterceptor } from './core/interceptors/core.interceptor';
 import { StoreModule } from '@ngrx/store';
 import { AppState } from './typings/store';
+import { userReducer } from './constants/store/user';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,9 @@ import { AppState } from './typings/store';
     AuthLayoutModule,
     DashboardLayoutModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot<AppState>(),
+    StoreModule.forRoot<AppState>({
+      user: userReducer
+    }),
   ],
   providers: [
     {

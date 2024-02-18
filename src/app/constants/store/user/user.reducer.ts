@@ -9,13 +9,18 @@ export const initialState: UserState = {
 
 export const userReducer = createReducer(
   initialState,
-  on(UserActions.loadUser, state => ({
+  on(UserActions.userLoad, state => ({
     ...state,
   })),
-  on(UserActions.loadUserSuccess, (state) => ({
+  on(UserActions.userSuccess, (state, {user}) => ({
+    ...state,
+    user: user
+  })),
+  on(UserActions.userFailure, (state) => ({
     ...state,
   })),
-  on(UserActions.loadUserFailure, (state) => ({
+  on(UserActions.userLogout, (state) => ({
     ...state,
+    user: null
   }))
 );
