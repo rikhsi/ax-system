@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Observable, filter, from, map, of, switchMap, take, takeUntil } from 'rxjs';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Observable, debounceTime, filter, from, map, of, switchMap, take, takeUntil, tap } from 'rxjs';
 import { NavItem } from 'src/app/typings';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AUTH_ROUTE, ROOT_ROUTE } from 'src/app/constants';
@@ -10,6 +10,8 @@ import { AppState } from 'src/app/typings/store';
 import { userLoad, userFailure, userSuccess, selectUser } from 'src/app/constants/store/user';
 import { User } from 'src/app/typings/api';
 import { selectLayoutPages, selectLayoutActivePage, layoutActivePage  } from 'src/app/constants/store/layout-page';
+import { ResizeDirective } from './resize.directive';
+import { DashboardLayoutService } from './dashboard-layout.service';
 
 
 @Component({
@@ -19,11 +21,15 @@ import { selectLayoutPages, selectLayoutActivePage, layoutActivePage  } from 'sr
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [DestroyService]
 })
-export class DashboardLayoutComponent implements OnInit {
+export class DashboardLayoutComponent implements OnInit, AfterViewInit {
   dashboardPages$: Observable<NavItem[]> = this.store.pipe(select(selectLayoutPages));
   user$: Observable<User> = this.store.pipe(select(selectUser));
   currentPage$: Observable<NavItem> = this.store.pipe(select(selectLayoutActivePage));
+  headerHeight: string;
 
+  @ViewChild(ResizeDirective) resizeDirective: ResizeDirective;
+  @ViewChild('container', { read: ViewContainerRef }) container: ViewContainerRef;
+  
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -31,13 +37,32 @@ export class DashboardLayoutComponent implements OnInit {
     private storageService: StorageService,
     private userService: UserService,
     private redirectService: RedirectService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private dashboardLayoutService: DashboardLayoutService
   ){} 
 
   ngOnInit(): void {
+    this.dashboardLayoutService.onChangeRoute();
     this.defineRoute();
     this.onGetUser();
   }  
+
+  ngAfterViewInit(): void {
+    this.onListenHeaderContent();
+    this.onListenAction();
+  }
+
+  private onListenAction(): void {
+    this.dashboardLayoutService.layoutActionRef$
+    .pipe(
+      tap(() => this.container?.clear()),
+      filter(el => el !== null),
+      takeUntil(this.destroy)
+    )
+    .subscribe((el) => {
+      this.container.createEmbeddedView(el);
+    })
+  }
 
   private onGetUser(): void {
     const token = this.storageService.getAccessToken() as string;
@@ -81,6 +106,17 @@ export class DashboardLayoutComponent implements OnInit {
     )
     .subscribe(page => {
       this.store.dispatch(layoutActivePage({page}));
+    });
+  }
+
+  private onListenHeaderContent(): void {
+    this.resizeDirective.resize
+    .pipe(
+      debounceTime(100),
+      takeUntil(this.destroy)
+    )
+    .subscribe((rect: DOMRectReadOnly) => {
+      this.headerHeight = `calc(100svh - ${rect.height}px)`;
     });
   }
 

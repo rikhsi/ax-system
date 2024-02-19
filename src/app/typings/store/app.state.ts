@@ -6,5 +6,5 @@ export type AppState = {
     layoutPages: LayoutPageState;
     layoutActivePage: LayoutActivePageState;
     user: UserState;
-    task: TaskState
+    task: TaskState;
 }

@@ -1,5 +1,5 @@
-import { Task } from "../api/task";
+import { Tasks } from "../api/task";
 
 export type TaskState = {
-    tasks: Task[];
+    tasks: Tasks;
 }

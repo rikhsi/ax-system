@@ -1,21 +1,31 @@
 import { createReducer, on } from '@ngrx/store';
 import { TaskState } from 'src/app/typings/store';
-import { taskFailure, taskLoad, taskSuccess } from './task.actions';
+import { taskFailure, taskLoad, taskRemove, taskSuccess } from './task.actions';
 
-const initialState: TaskState = {
-  tasks: []
+const taskInitialState: TaskState = {
+  tasks: {
+    list: [],
+    total: 0
+  }
 };
 
 export const taskReducer = createReducer(
-  initialState,
+  taskInitialState,
   on(taskLoad, state => ({
     ...state,
   })),
-  on(taskSuccess, (state, {tasks}) => ({
+  on(taskSuccess, (state, { tasks }) => ({
     ...state,
     tasks
   })),
   on(taskFailure, (state) => ({
     ...state,
+  })),
+  on(taskRemove, (state, {id}) => ({
+    ...state,
+    tasks: {
+      ...state.tasks,
+      list: state.tasks.list.filter(task => task.id !== id)
+    }
   }))
 );

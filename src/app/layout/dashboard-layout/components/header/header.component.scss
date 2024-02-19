@@ -1,11 +1,16 @@
 @import 'colors';
 @import 'mixin';
 
+:host {
+    display: block;
+}
+
 .header {
     display: flex;
     flex-direction: column;
     row-gap: 25px;
     padding: 25px 30px;
+    background: $ax-white;
     
     .container {
         display: flex;

@@ -3,24 +3,24 @@
        <ng-content></ng-content>
     </table>
     
-    <ng-container *ngIf="showPagination">
+    <ng-container *ngIf="showPagination && total">
         <div class="pagination">
-            <span>{{pageSize}} из {{tableData.length}}</span>
+            <span>{{displayedItemCount}} из {{total}}</span>
 
             <div class="buttons">
                 <button 
                     mat-button 
-                    [disabled]="!currentPage || !tableData.length"
-                    class="prev" 
+                    [disabled]="prevVisibilty"
                     (click)="onPrev()"
+                    class="prev" 
                 >
                     <ax-svg-icon [name]="'arrow'"></ax-svg-icon>
                 </button>
                 <button 
                     mat-button 
-                    [disabled]="!tableData.length"
-                    class="next" 
+                    [disabled]="nextVisibilty"
                     (click)="onNext()"
+                    class="next" 
                 >
                     <ax-svg-icon [name]="'arrow'"></ax-svg-icon>
                 </button>

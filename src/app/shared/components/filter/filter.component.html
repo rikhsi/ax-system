@@ -1,0 +1,30 @@
+<button 
+    mat-button 
+    class="filter"
+    [cdkMenuTriggerFor]="menu"
+>
+    <span>Сортировать по:</span>
+
+    <figure class="sort">
+        <span>{{currentFilter.name}}</span>
+        <ax-svg-icon [name]="'arrow'"></ax-svg-icon>
+    </figure>
+</button>
+
+<ng-template #menu>
+    <div class="menu" cdkMenu>
+        <div cdkMenuGroup class="group">
+            <ng-container *ngFor="let filter of filterList">
+                <button 
+                    mat-button
+                    cdkMenuItemRadio
+                    [ngClass]="{active: currentFilter.type === filter.type}"
+                    (cdkMenuItemTriggered)="onSelect(filter)"
+                    class="item"
+                >
+                    {{filter.name}}
+                </button>
+            </ng-container>
+        </div>
+    </div>
+</ng-template>

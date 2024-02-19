@@ -4,3 +4,4 @@ export * from './auth-form';
 export * from './nav-item';
 export * from './form';
 export * from './tag';
+export * from './filter-type';

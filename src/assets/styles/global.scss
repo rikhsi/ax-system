@@ -30,6 +30,11 @@
     font-size: 12px;
 }
 
+.mdc-button__label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 //custom components
 .ax-menu-item {
