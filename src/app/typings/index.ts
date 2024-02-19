@@ -3,3 +3,4 @@ export * from './button';
 export * from './auth-form';
 export * from './nav-item';
 export * from './form';
+export * from './tag';

@@ -1,0 +1,35 @@
+@import 'colors';
+@import 'mixin';
+
+.user-card {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    column-gap: 10px;
+    cursor: pointer;
+    user-select: none;
+
+    img {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: aqua;
+    }
+
+    p {
+        @include text-mixin(400,20px,26px,$ax-black);
+    }
+
+    &.small {
+        img {
+            width: 34px;
+            height: 34px;
+        }
+
+        p {
+            font-size: 17px;
+            line-height: 22px;
+        }
+    }
+}

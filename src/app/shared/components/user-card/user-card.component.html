@@ -1,0 +1,11 @@
+<div 
+    [ngClass]="{small: size === 'small'}" 
+    class="user-card"
+>
+    <img 
+        [src]="user?.avatar" 
+        [alt]="user?.displayName" 
+        loading="lazy"
+    >
+    <p>{{user?.displayName}}</p>
+</div>

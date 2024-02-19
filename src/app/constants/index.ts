@@ -5,3 +5,4 @@ export * from './auth-routes';
 export * from './errors';
 export * from './storage';
 export * from './table';
+export * from './tag';

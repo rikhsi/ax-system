@@ -1,0 +1,27 @@
+@import 'colors';
+@import 'mixin';
+
+.tag {
+    width: fit-content;
+    min-width: 110px;
+    padding: 5px 18px;
+    border-radius: 50px;
+    text-align: center;
+    display: block;
+    @include text-mixin(400,17px,22px, inherit);
+
+    &.low {
+        background: $ax-purple;
+        color: $ax-light-blue;
+    }
+
+    &.medium {
+        background: $ax-light-orange;
+        color: $ax-orange;
+    }
+
+    &.high {
+        background: $ax-light-red;
+        color: $ax-red;
+    }
+}

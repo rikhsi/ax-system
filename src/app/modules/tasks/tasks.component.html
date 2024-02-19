@@ -12,8 +12,15 @@
     <tbody>
         <tr *ngFor="let data of axTable.tableData">
             <td>{{data.date}}</td>
-            <td>{{data.performer.displayName}}</td>
-            <td>{{data.priority}}</td>
+            <td>
+                <ax-user-card 
+                    [user]="data.performer" 
+                    [size]="'small'">
+                </ax-user-card>
+            </td>
+            <td>
+                <ax-tag [tagType]="data.priority"></ax-tag>
+            </td>
             <td>{{data.task_name}}</td>
             <td></td>
         </tr>

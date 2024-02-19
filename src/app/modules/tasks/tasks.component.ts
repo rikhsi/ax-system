@@ -17,7 +17,7 @@ import { AppState } from 'src/app/typings/store';
 })
 export class TasksComponent implements OnInit {
   tableData$: Observable<Task[]> = this.store.pipe(select(selectTask));
-  limit: number = 9;
+  limit: number = 4;
   headers: TaskTable[] = [
     TaskTable.date, 
     TaskTable.performer, 

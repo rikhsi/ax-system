@@ -17,6 +17,7 @@
             th, td {
                 text-align: start;
                 border-bottom: 1px solid $ax-light-grey;
+                vertical-align: middle;
                 @include text-mixin(400,17px,22px,$ax-black);
             }
             

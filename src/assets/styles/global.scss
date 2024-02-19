@@ -1,6 +1,10 @@
 @import 'mixin';
 @import 'colors';
 
+* {
+    box-sizing: border-box;
+}
+
 //material
 .mat-mdc-text-field-wrapper  {
     background-color: inherit !important;

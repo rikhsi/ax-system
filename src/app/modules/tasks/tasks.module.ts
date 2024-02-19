@@ -6,6 +6,7 @@ import { TasksComponent } from './tasks.component';
 import { TableComponent } from 'src/app/shared/components/table/table.component';
 import { ButtonComponent } from 'src/app/shared/components/button/button.component';
 import { TagComponent } from 'src/app/shared/components/tag/tag.component';
+import { UserCardComponent } from 'src/app/shared/components/user-card/user-card.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { TagComponent } from 'src/app/shared/components/tag/tag.component';
     TasksRoutingModule,
     TableComponent,
     ButtonComponent,
-    TagComponent
+    TagComponent,
+    UserCardComponent
   ]
 })
 export class TasksModule { }

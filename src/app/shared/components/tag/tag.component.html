@@ -1,1 +1,10 @@
-<p>tag works!</p>
+<div 
+    [ngClass]="{ 
+        low: tagType === 'low',
+        medium: tagType === 'medium',
+        high: tagType === 'high'
+    }"
+    class="tag"
+>
+    {{tagName}}
+</div>
