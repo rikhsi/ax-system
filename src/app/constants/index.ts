@@ -4,3 +4,4 @@ export * from './dashboard-routes';
 export * from './auth-routes';
 export * from './errors';
 export * from './storage';
+export * from './table';

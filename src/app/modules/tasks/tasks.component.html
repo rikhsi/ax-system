@@ -1,1 +1,21 @@
-<p>tasks works!</p>
+<ax-table 
+    #axTable 
+    [tableData]="tableData$ | async"
+    [showPagination]="true"
+    (pageIndexChange)="onChangePage($event)"
+>
+    <thead>
+        <tr>
+            <th *ngFor="let name of headers">{{name}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of axTable.tableData">
+            <td>{{data.date}}</td>
+            <td>{{data.performer.displayName}}</td>
+            <td>{{data.priority}}</td>
+            <td>{{data.task_name}}</td>
+            <td></td>
+        </tr>
+    </tbody>
+</ax-table>

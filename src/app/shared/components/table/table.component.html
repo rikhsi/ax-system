@@ -1,0 +1,30 @@
+<div class="table">
+    <table [ngStyle]="{tableLayout: layout}">
+       <ng-content></ng-content>
+    </table>
+    
+    <ng-container *ngIf="showPagination">
+        <div class="pagination">
+            <span>{{pageSize}} из {{tableData.length}}</span>
+
+            <div class="buttons">
+                <button 
+                    mat-button 
+                    [disabled]="!currentPage || !tableData.length"
+                    class="prev" 
+                    (click)="onPrev()"
+                >
+                    <ax-svg-icon [name]="'arrow'"></ax-svg-icon>
+                </button>
+                <button 
+                    mat-button 
+                    [disabled]="!tableData.length"
+                    class="next" 
+                    (click)="onNext()"
+                >
+                    <ax-svg-icon [name]="'arrow'"></ax-svg-icon>
+                </button>
+            </div>
+        </div>
+    </ng-container>
+</div>

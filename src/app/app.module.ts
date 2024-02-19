@@ -12,6 +12,8 @@ import { StoreModule } from '@ngrx/store';
 import { AppState } from './typings/store';
 import { userReducer } from './constants/store/user';
 import { layoutActivePageReducer, layoutPagesReducer } from './constants/store/layout-page';
+import { taskReducer } from './constants/store/task/task.reducer';
+
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { layoutActivePageReducer, layoutPagesReducer } from './constants/store/l
     StoreModule.forRoot<AppState>({
       layoutPages: layoutPagesReducer,
       layoutActivePage: layoutActivePageReducer,
-      user: userReducer
+      user: userReducer,
+      task: taskReducer
     }),
   ],
   providers: [
