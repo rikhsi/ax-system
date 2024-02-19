@@ -1,1 +1,53 @@
-<p>tasks works!</p>
+<ax-table 
+    #axTable 
+    [layout]="'fixed'"
+    [tableData]="tableData$ | async"
+    [total]="total$ | async"
+    [showPagination]="true"
+    [pageSize]="limit"
+    (pageIndexChange)="onChangePage($event)"
+>
+    <thead>
+        <tr>
+            <th *ngFor="let name of headers">{{name}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of axTable.tableData | sort: currentFilter; trackBy: trackByFn">
+            <td>{{data.date}}</td>
+            <td>
+                <ax-user-card 
+                    [user]="data.performer" 
+                    [size]="'small'">
+                </ax-user-card>
+            </td>
+            <td>
+                <ax-tag [tagType]="data.priority"></ax-tag>
+            </td>
+            <td>{{data.task_name}}</td>
+            <td class="close">
+                <button 
+                    mat-button 
+                    (click)="onRemoveTask(data.id)"
+                >
+                    <ax-svg-icon [name]="'close'"></ax-svg-icon>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</ax-table>
+
+<ng-template #actionRef>
+    <div class="actions">
+        <ax-filter 
+            [filterList]="filters"
+            (clicked)="onSelectFilter($event)">
+        </ax-filter>
+
+        <ax-button 
+            [text]="'Добавить задачу'"
+            [mode]="'primary'"
+            class="button">
+        </ax-button>
+    </div>
+</ng-template>

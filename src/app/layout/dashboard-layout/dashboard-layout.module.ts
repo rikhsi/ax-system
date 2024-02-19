@@ -7,19 +7,26 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { SvgIconComponent } from 'src/app/shared/components/svg-icon/svg-icon.component';
 import { MatRippleModule } from '@angular/material/core';
 import { MenuModule } from 'src/app/shared/directives/menu/menu.module';
+import { UserCardComponent } from 'src/app/shared/components/user-card/user-card.component';
+import { NgScrollbarModule } from 'ngx-scrollbar';
+import { ResizeDirective } from './resize.directive';
 
 @NgModule({
   declarations: [
     DashboardLayoutComponent,
     HeaderComponent,
-    NavigationComponent
+    NavigationComponent,
+    ResizeDirective
   ],
   imports: [
     CommonModule,
     RouterModule,
     SvgIconComponent,
     MatRippleModule,
-    MenuModule
+    MenuModule,
+    UserCardComponent,
+    NgScrollbarModule,
+  
   ]
 })
 export class DashboardLayoutModule { }

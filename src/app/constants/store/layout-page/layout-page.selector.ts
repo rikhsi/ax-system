@@ -10,5 +10,3 @@ export const selectLayoutActivePage = createSelector(
     (state: AppState) => state.layoutActivePage,
     (layoutPages) =>  layoutPages.page
 );
-
-

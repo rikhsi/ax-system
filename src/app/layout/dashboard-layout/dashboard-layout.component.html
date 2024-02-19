@@ -8,14 +8,22 @@
         </ax-navigation>
     
         <div class="box">
-            <ax-header
-                [title]="currentPage.title"
-                [user]="user$ | async"
-            >
-            </ax-header>
+            <header axResize>
+                <ax-header
+                    [title]="currentPage.title"
+                    [user]="user$ | async"
+                >
+                    <ng-container #container></ng-container>
+                </ax-header>
+            </header>
     
-            <main class="main">
-                <router-outlet></router-outlet>
+            <main 
+                [ngStyle]="{ height: headerHeight }"
+                class="main"
+            >
+                <ng-scrollbar>
+                    <router-outlet></router-outlet>
+                </ng-scrollbar>
             </main>
         </div>
     </div>

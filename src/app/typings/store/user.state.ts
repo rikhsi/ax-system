@@ -1,5 +1,5 @@
 import { User } from "../api";
 
-export interface UserState {
+export type UserState = {
     user: User;
 }

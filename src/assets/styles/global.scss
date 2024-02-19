@@ -1,6 +1,10 @@
 @import 'mixin';
 @import 'colors';
 
+* {
+    box-sizing: border-box;
+}
+
 //material
 .mat-mdc-text-field-wrapper  {
     background-color: inherit !important;
@@ -26,6 +30,11 @@
     font-size: 12px;
 }
 
+.mdc-button__label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 //custom components
 .ax-menu-item {
