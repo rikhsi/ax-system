@@ -1,3 +1,4 @@
 export enum UserQuery {
-    getById = 'users.json'
+    getById = 'users.json',
+    getAll  = 'users.json'
 }

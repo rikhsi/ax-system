@@ -11,5 +11,6 @@ export interface Task {
     priority: TagType;
     date: string;
     performer: User;
-    task_name: string;
+    title: string;
+    description: string;
 }

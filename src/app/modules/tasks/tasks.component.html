@@ -13,7 +13,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let data of axTable.tableData | sort: currentFilter; trackBy: trackByFn">
+        <tr *ngFor="let data of axTable.tableData; trackBy: trackByFn">
             <td>{{data.date}}</td>
             <td>
                 <ax-user-card 
@@ -47,7 +47,8 @@
         <ax-button 
             [text]="'Добавить задачу'"
             [mode]="'primary'"
-            class="button">
+            class="button"
+            (clicked)="openDialog('create')">
         </ax-button>
     </div>
 </ng-template>

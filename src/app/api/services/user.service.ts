@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserQuery } from '../queries';
-import { Observable, defaultIfEmpty, delay, filter, from, switchMap } from 'rxjs';
+import { Observable, defaultIfEmpty, delay, filter, from, map, switchMap } from 'rxjs';
 import { User } from 'src/app/typings/api';
 
 @Injectable({
@@ -20,6 +20,13 @@ export class UserService {
           defaultIfEmpty(null)
         )
       )
+    )
+  }
+
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<{users: User[]}>(UserQuery.getAll).pipe(
+      delay(100),
+      map(list => list.users)
     )
   }
 }

@@ -5,3 +5,8 @@ export const selectUser = createSelector(
     (state: AppState) => state.user,
     (userState) => userState.user
 );
+
+export const selectPerformers = createSelector(
+    (state: AppState) => state.performers,
+    (state) => state.performers
+);

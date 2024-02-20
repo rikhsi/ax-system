@@ -1,0 +1,14 @@
+@import 'colors';
+@import 'mixin';
+
+.label {
+    display: inline-block;
+    margin-bottom: 10px;
+    cursor: pointer;
+    @include text-mixin(400,18px,22px,$ax-black);
+
+    &.required::after {
+        content: '*';
+        color: $ax-light-blue;
+    }
+}

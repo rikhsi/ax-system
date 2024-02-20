@@ -1,0 +1,18 @@
+<div class="select">
+    <ax-label 
+        [id]="label"
+        [required]="required" 
+        [label]="label">
+    </ax-label>
+
+   <div class="input">
+        <mat-select [placeholder]="placeholder">
+            <mat-option *ngFor="let option of options" [value]="option.id">
+            {{option.name}}
+            </mat-option>
+        </mat-select>
+
+        <ax-svg-icon [name]="'arrow'" class="icon"></ax-svg-icon>
+   </div>
+</div>
+

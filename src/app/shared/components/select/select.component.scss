@@ -1,0 +1,55 @@
+@import 'colors';
+@import 'mixin';
+
+:host {
+    display: block;
+    flex: 1;
+
+    .select {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .input {
+            position: relative;
+
+            ::ng-deep .mat-mdc-select-trigger {
+                position: relative;
+                z-index: 1;
+                min-width: 100%;
+                padding: 10px 20px;
+                border-radius: 10px;
+                border: none;
+                outline: 1px solid $ax-light-grey;
+                @include text-mixin(400,17px,22px,$ax-black);
+            
+                &:placeholder {
+                    color: $ax-grey;
+                }
+        
+                &:focus {
+                    outline: 2px solid $ax-light-blue;
+                }
+            }
+    
+            ::ng-deep .mat-mdc-select-arrow {
+                display: none;
+            }
+
+            .icon {
+                position: absolute;
+                top: 11px;
+                right: 20px;
+                user-select: none;
+
+                ::ng-deep svg path {
+                    stroke: $ax-deep-grey;
+                }
+            }
+        }
+    
+     
+    }
+}
+
+

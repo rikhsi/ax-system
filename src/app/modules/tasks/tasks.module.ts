@@ -11,6 +11,7 @@ import { SvgIconComponent } from 'src/app/shared/components/svg-icon/svg-icon.co
 import { MatButtonModule } from '@angular/material/button';
 import { FilterComponent } from 'src/app/shared/components/filter/filter.component';
 import { SortPipe } from 'src/app/shared/pipes/sort.pipe';
+import { DialogModule } from '@angular/cdk/dialog';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { SortPipe } from 'src/app/shared/pipes/sort.pipe';
     SvgIconComponent,
     MatButtonModule,
     FilterComponent,
-    SortPipe
+    SortPipe,
+    DialogModule
   ]
 })
 export class TasksModule { }

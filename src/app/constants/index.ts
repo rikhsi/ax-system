@@ -6,3 +6,4 @@ export * from './errors';
 export * from './storage';
 export * from './table';
 export * from './tag';
+export * from './date-format';

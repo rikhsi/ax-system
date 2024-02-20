@@ -10,7 +10,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CoreInterceptor } from './core/interceptors/core.interceptor';
 import { StoreModule } from '@ngrx/store';
 import { AppState } from './typings/store';
-import { userReducer } from './constants/store/user';
+import { performersReducer, userReducer } from './constants/store/user';
 import { layoutActivePageReducer, layoutPagesReducer } from './constants/store/layout-page';
 import { taskReducer } from './constants/store/task/task.reducer';
 
@@ -30,6 +30,7 @@ import { taskReducer } from './constants/store/task/task.reducer';
       layoutPages: layoutPagesReducer,
       layoutActivePage: layoutActivePageReducer,
       user: userReducer,
+      performers: performersReducer,
       task: taskReducer
     }),
   ],

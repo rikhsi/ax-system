@@ -1,0 +1,16 @@
+<div class="date-picker">
+    <ax-label 
+        [id]="label"
+        [required]="required" 
+        [label]="label">
+    </ax-label>
+
+    <mat-datepicker #picker></mat-datepicker>
+    
+    <input 
+        [id]="label" 
+        [matDatepicker]="picker" 
+        (click)="picker.open()"
+    >
+</div>
+

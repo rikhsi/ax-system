@@ -1,0 +1,72 @@
+@import 'colors';
+@import 'mixin';
+
+.task-dialog {
+    width: 765px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    padding: 30px 50px 50px;
+    background: $ax-white;
+    border-radius: 10px;
+
+    .top {
+        display: flex;
+        column-gap: 24px;
+        justify-content: space-between;
+        align-items: center;
+
+        .title {
+            @include text-mixin(600,28px,36px,$ax-black);
+        }
+
+        .close {
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            min-width: auto;
+            width: fit-content;
+            height: fit-content;
+
+            ::ng-deep svg path {
+                stroke: $ax-deep-grey;
+            }
+        }
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        row-gap: 30px;
+
+        .inputs {
+            display: flex;
+            flex-wrap: nowrap;
+            column-gap: 20px;
+
+            .date {
+                flex: 1;
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+
+        .radio {
+            display: flex;
+            flex-direction: column;
+
+            .group {
+                display: flex;
+                flex-wrap: nowrap;
+                column-gap: 60px;
+                align-items: center;
+            }
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: nowrap;
+            column-gap: 10px;
+        }
+    }
+}

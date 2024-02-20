@@ -1,0 +1,63 @@
+<div class="task-dialog">
+   <div class="top">
+        <p class="title">{{data?.title}}</p>
+
+        <button 
+            mat-button 
+            class="close" 
+            (click)="onClose()"
+        >
+            <ax-svg-icon [name]="'close'"></ax-svg-icon>
+        </button>
+   </div>
+   <ng-form [formGroup]="taskForm" class="form">
+        <div class="inputs">
+            <div class="date">
+                <ax-date-picker 
+                    [label]="'Дата создания'">
+                </ax-date-picker>
+            </div>
+            <ax-input 
+                [label]="'Название'" 
+                [required]="true">
+            </ax-input>
+        </div>
+
+        <ax-textarea [label]="'Описание'"></ax-textarea>
+
+        <div class="radio">
+            <ax-label 
+                [label]="'Приоритет задачи'" 
+                [required]="true">
+            </ax-label>
+            
+            <mat-radio-group class="group">
+                <mat-radio-button 
+                    [color]="radio.color"
+                    *ngFor="let radio of radioButtons"
+                    [value]="radio.type"
+                >
+                    {{radio.name}}
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <ax-select 
+            [label]="'Исполнитель'" 
+            [required]="true"
+            [options]="data.options$ | async">
+        </ax-select>
+
+        <ng-container *ngIf="data?.buttons">
+            <div class="buttons">
+                <ax-button 
+                    [text]="'Сохранить'" 
+                    [mode]="'primary'">
+                </ax-button>
+                <ax-button 
+                    [text]="'Сохранить как черновик'">
+                </ax-button>
+            </div>
+        </ng-container>
+   </ng-form>
+</div>
