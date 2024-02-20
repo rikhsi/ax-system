@@ -21,6 +21,7 @@
             "outputPath": "dist/ax-system",
             "index": "src/index.html",
             "main": "src/main.ts",
+            "extractLicenses": true,
             "polyfills": [
               "zone.js"
             ],

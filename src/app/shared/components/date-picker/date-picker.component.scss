@@ -29,5 +29,9 @@
         &:focus {
             outline: 2px solid $ax-light-blue;
         }
+
+        &:disabled {
+            background: $ax-grey;
+        }
     }
 }

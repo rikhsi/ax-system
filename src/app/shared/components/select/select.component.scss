@@ -22,13 +22,17 @@
                 border: none;
                 outline: 1px solid $ax-light-grey;
                 @include text-mixin(400,17px,22px,$ax-black);
-            
-                &:placeholder {
-                    color: $ax-grey;
-                }
-        
-                &:focus {
+            }
+
+            &.open {
+                ::ng-deep .mat-mdc-select-trigger {
                     outline: 2px solid $ax-light-blue;
+                }
+            }
+
+            &.disabled {
+                ::ng-deep .mat-mdc-select-trigger {
+                    background: $ax-grey;
                 }
             }
     
@@ -47,9 +51,11 @@
                 }
             }
         }
-    
-     
     }
+}
+
+::ng-deep .cdk-overlay-pane {
+    margin-top: 10px !important;
 }
 
 

@@ -10,7 +10,10 @@
     <input 
         [id]="label" 
         [matDatepicker]="picker" 
+        [disabled]="disabled"
         (click)="picker.open()"
+        [(ngModel)]="value"
+        (ngModelChange)="changeVal($event)"
     >
 </div>
 

@@ -5,8 +5,15 @@
         [label]="label">
     </ax-label>
 
-   <div class="input">
-        <mat-select [placeholder]="placeholder">
+   <div class="input" [ngClass]="{open: isOpen, disabled: disabled}">
+        <mat-select 
+            [(value)]="value"
+            [disabled]="disabled"
+            [placeholder]="placeholder" 
+            (opened)="toggle()" 
+            (closed)="toggle()"
+            (valueChange)="changeVal($event)"
+        >
             <mat-option *ngFor="let option of options" [value]="option.id">
             {{option.name}}
             </mat-option>

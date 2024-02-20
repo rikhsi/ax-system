@@ -60,6 +60,10 @@
                 flex-wrap: nowrap;
                 column-gap: 60px;
                 align-items: center;
+
+                .check.disabled{
+                    pointer-events: none;
+                }
             }
         }
 

@@ -5,5 +5,11 @@
         [label]="label">
     </ax-label>
 
-    <input [id]="label" [placeholder]="placeholder" type="text">
+    <input 
+        [id]="label" 
+        [disabled]="disabled"
+        [placeholder]="placeholder" 
+        [(ngModel)]="value"   
+        (ngModelChange)="changeVal($event)" 
+    >
 </div>

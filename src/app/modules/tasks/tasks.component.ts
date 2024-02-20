@@ -1,9 +1,9 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { BehaviorSubject, Observable, debounceTime, from, map, switchMap, takeUntil, tap, toArray } from 'rxjs';
+import { BehaviorSubject, Observable, concatMap, debounceTime, filter, from, map, switchMap, takeUntil, tap, toArray } from 'rxjs';
 import { TaskService, UserService } from 'src/app/api/services';
 import { TaskTable } from 'src/app/constants';
-import { selectTask, selectTaskTotal, taskFailure, taskLoad, taskRemove, taskSuccess } from 'src/app/constants/store/task';
+import { selectTask, selectTaskTotal, taskAdd, taskFailure, taskLoad, taskRemove, taskSuccess } from 'src/app/constants/store/task';
 import { DestroyService } from 'src/app/core/services';
 import { DashboardLayoutService } from 'src/app/layout/dashboard-layout/dashboard-layout.service';
 import { TrackBy } from 'src/app/shared/utils';
@@ -138,7 +138,7 @@ export class TasksComponent extends TrackBy implements OnInit, AfterViewInit {
     this.currentPage$.next(currentPage);
   }
 
-  openDialog(type: 'create' | 'view'): void {
+  openDialog(type: 'create' | 'view', task?: Task): void {
     const title = type === 'create' ? 'Создание новой задачи' : 'Просмотр задачи';
     const buttons = type === 'create';
     const options$ = this.performers$.pipe(
@@ -147,14 +147,25 @@ export class TasksComponent extends TrackBy implements OnInit, AfterViewInit {
         })
     );
     
-    this.dialog.open<string>(
+    const dialog = this.dialog.open<Task>(
       TaskDialogComponent,
       {
-        autoFocus: false,
         disableClose: true,
-        data: { title, buttons, options$ }
+        data: { title, buttons, options$, task }
       }
     ).closed;
+
+    dialog.pipe(
+      switchMap(task => this.performers$.pipe(
+        concatMap(p => from(p).pipe(
+          filter(p => p.id === +task?.performer_id),
+          map(p => ({...task, performer: p})),
+          map(({ performer_id, ...rest }) => rest)
+        ))
+      )),
+    ).subscribe((task) => {
+      this.store.dispatch(taskAdd({ task }));
+    });
   }
 
 }

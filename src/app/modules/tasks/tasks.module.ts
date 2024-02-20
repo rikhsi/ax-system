@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FilterComponent } from 'src/app/shared/components/filter/filter.component';
 import { SortPipe } from 'src/app/shared/pipes/sort.pipe';
 import { DialogModule } from '@angular/cdk/dialog';
+import { DatePipe } from 'src/app/shared/pipes/date.pipe';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { DialogModule } from '@angular/cdk/dialog';
     MatButtonModule,
     FilterComponent,
     SortPipe,
-    DialogModule
+    DialogModule,
+    DatePipe
   ]
 })
 export class TasksModule { }

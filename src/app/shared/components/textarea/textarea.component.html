@@ -5,5 +5,11 @@
         [label]="label">
     </ax-label>
 
-    <textarea [id]="label" [placeholder]="placeholder"></textarea>
+    <textarea 
+        [id]="label" 
+        [disabled]="disabled"
+        [placeholder]="placeholder"
+        [(ngModel)]="value"
+        (ngModelChange)="changeVal($event)">
+    </textarea>
 </div>

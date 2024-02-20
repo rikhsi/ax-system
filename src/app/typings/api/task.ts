@@ -10,7 +10,8 @@ export interface Task {
     id: number;
     priority: TagType;
     date: string;
-    performer: User;
     title: string;
     description: string;
+    performer?: User;
+    performer_id?: number;
 }

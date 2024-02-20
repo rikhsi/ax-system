@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { FilterItem } from 'src/app/typings';
 import { Task } from 'src/app/typings/api/task';
+import * as moment from 'moment';
 
 @Pipe({
   name: 'sort',
@@ -17,10 +18,9 @@ export class SortPipe implements PipeTransform {
     switch (item.type) {
       case 'date':
         sortedList.sort((a, b) => {
-   
-          const dateA = new Date(a.date).getDay();
-          const dateB = new Date(b.date).getDate();
-          return dateA - dateB;
+          const dateA = moment(a.date);
+          const dateB = moment(b.date);
+          return dateA.diff(dateB);
         });
         break;
     }

@@ -14,16 +14,24 @@
         <div class="inputs">
             <div class="date">
                 <ax-date-picker 
+                    [ax-disabled]="disabled"
+                    [formControl]="taskForm.controls.date"
                     [label]="'Дата создания'">
                 </ax-date-picker>
             </div>
             <ax-input 
+                [ax-disabled]="disabled"
+                [formControl]="taskForm.controls.title"
                 [label]="'Название'" 
                 [required]="true">
             </ax-input>
         </div>
 
-        <ax-textarea [label]="'Описание'"></ax-textarea>
+        <ax-textarea 
+            [ax-disabled]="disabled"
+            [formControl]="taskForm.controls.description"
+            [label]="'Описание'">
+        </ax-textarea>
 
         <div class="radio">
             <ax-label 
@@ -31,11 +39,16 @@
                 [required]="true">
             </ax-label>
             
-            <mat-radio-group class="group">
+            <mat-radio-group 
+                [formControl]="taskForm.controls.priority"  
+                class="group"
+            >
                 <mat-radio-button 
+                    [ngClass]="{disabled: disabled}"
                     [color]="radio.color"
                     *ngFor="let radio of radioButtons"
                     [value]="radio.type"
+                    class="check"
                 >
                     {{radio.name}}
                 </mat-radio-button>
@@ -43,6 +56,8 @@
         </div>
 
         <ax-select 
+            [ax-disabled]="disabled"
+            [formControl]="taskForm.controls.performer"
             [label]="'Исполнитель'" 
             [required]="true"
             [options]="data.options$ | async">
@@ -51,11 +66,14 @@
         <ng-container *ngIf="data?.buttons">
             <div class="buttons">
                 <ax-button 
+                    [disabled]="taskForm.invalid"
                     [text]="'Сохранить'" 
-                    [mode]="'primary'">
+                    [mode]="'primary'"
+                    (clicked)="submit()">
                 </ax-button>
                 <ax-button 
-                    [text]="'Сохранить как черновик'">
+                    [text]="'Сохранить как черновик'"
+                    (clicked)="onSave()">
                 </ax-button>
             </div>
         </ng-container>

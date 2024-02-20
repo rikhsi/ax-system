@@ -13,8 +13,11 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let data of axTable.tableData; trackBy: trackByFn">
-            <td>{{data.date}}</td>
+        <tr 
+            *ngFor="let data of axTable.tableData | sort: currentFilter; trackBy: trackByFn"
+            (click)="openDialog('view', data)"
+        >
+            <td>{{ data.date | axDate}}</td>
             <td>
                 <ax-user-card 
                     [user]="data.performer" 
@@ -24,7 +27,7 @@
             <td>
                 <ax-tag [tagType]="data.priority"></ax-tag>
             </td>
-            <td>{{data.task_name}}</td>
+            <td>{{data.title}}</td>
             <td class="close">
                 <button 
                     mat-button 

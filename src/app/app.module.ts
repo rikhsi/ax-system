@@ -13,7 +13,11 @@ import { AppState } from './typings/store';
 import { performersReducer, userReducer } from './constants/store/user';
 import { layoutActivePageReducer, layoutPagesReducer } from './constants/store/layout-page';
 import { taskReducer } from './constants/store/task/task.reducer';
+import { registerLocaleData } from '@angular/common';
+import ru from '@angular/common/locales/ru';
+import 'moment/locale/ru';
 
+registerLocaleData(ru);
 
 @NgModule({
   declarations: [
